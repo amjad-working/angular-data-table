@@ -1,1 +1,72 @@
-<p>data-table works!</p>
+<div class="table-container">
+
+    <!-- Header -->
+    <div class="table-header">
+        <h2 class="table-title">{{ config().title }}</h2>
+
+        @if (config().showSearch) {
+        <input class="search-input" placeholder="Search..." [value]="globalFilter()" (input)="onSearchInput($event)" />
+        }
+    </div>
+
+    <!-- Table -->
+    <div>
+        <table>
+
+            <thead>
+                @for (headerGroup of table.getHeaderGroups(); track headerGroup.id) {
+                <tr>
+                    @for (header of headerGroup.headers; track header.id) {
+                    <th [style.width.px]="header.getSize()" [class.sortable]="header.column.getCanSort()"
+                        (click)="header.column.getToggleSortingHandler()?.($event)" class="text-start">
+                        @if (!header.isPlaceholder) {
+                        {{header.getContext().column.columnDef.header}}
+                        }
+
+                        @if (header.column.getIsSorted()) {
+                        <span class="sort-indicator">
+                            {{ header.column.getIsSorted() === 'asc' ? '↑' : '↓' }}
+                        </span>
+                        }
+                    </th>
+                    }
+                </tr>
+                }
+            </thead>
+
+            <tbody>
+                @for (row of table.getRowModel().rows; track row.id) {
+                <tr>
+                    @for (cell of row.getVisibleCells(); track cell.id) {
+                    <td>
+                        {{cell.getValue()}}
+                    </td>
+                    }
+                </tr>
+                }
+            </tbody>
+
+        </table>
+    </div>
+
+    <!-- Pagination -->
+    @if (config().showPagination) {
+    <div>
+
+        <div>
+            Showing {{ startIndex() }}–{{ endIndex() }}
+            of {{ totalRows() }}
+        </div>
+
+        <div>
+            <button (click)="firstPage()" [disabled]="!table.getCanPreviousPage()">«</button>
+            <button (click)="prevPage()" [disabled]="!table.getCanPreviousPage()">‹</button>
+            <span>Page {{ currentPage() }} of {{ pageCount() }}</span>
+            <button (click)="nextPage()" [disabled]="!table.getCanNextPage()">›</button>
+            <button (click)="lastPage()" [disabled]="!table.getCanNextPage()">»</button>
+        </div>
+
+    </div>
+    }
+
+</div>

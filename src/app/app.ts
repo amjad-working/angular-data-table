@@ -1,12 +1,252 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
+import { DataTableComponent, TableConfig } from './components/data-table/data-table';
+import { ColumnDef } from '@tanstack/angular-table';
+
+interface User {
+  user: string;
+  language: string;
+  gameOfChoice: string;
+  totalRevenue: number;
+  added: string;
+  trend: string;
+  lastUpdate: string;
+}
 
 @Component({
   selector: 'app-root',
-  imports: [],
+  imports: [DataTableComponent],
   templateUrl: './app.html',
   styleUrl: './app.scss'
 })
 export class App {
   protected readonly title = signal('angular-table-app');
+
+  tableConfig: TableConfig = {
+    title: 'Leaderboard',
+    showSearch: true,
+    showPagination: true,
+    pageSize: 10
+  };
+
+  data: User[] = [
+    {
+      user: 'Jane Cooper',
+      language: 'English',
+      gameOfChoice: 'Chess',
+      totalRevenue: 23392,
+      added: '21 Apr 2024',
+      trend: '+90.01%',
+      lastUpdate: '21 Apr 2024'
+    },
+    {
+      user: 'Arlene McCoy',
+      language: 'German',
+      gameOfChoice: 'Rithmomachy',
+      totalRevenue: 31112,
+      added: '20 Apr 2024',
+      trend: '-3.01%',
+      lastUpdate: '17 Apr 2024'
+    },
+    {
+      user: 'Darrell Steward',
+      language: 'Dutch',
+      gameOfChoice: 'Hare and Hounds',
+      totalRevenue: 313492,
+      added: '17 Apr 2024',
+      trend: '+12.01%',
+      lastUpdate: '28 Mar 2024'
+    },
+    {
+      user: 'Savannah Nguyen',
+      language: 'French',
+      gameOfChoice: 'Go',
+      totalRevenue: 128900,
+      added: '15 Apr 2024',
+      trend: '+18.45%',
+      lastUpdate: '19 Apr 2024'
+    },
+    {
+      user: 'Cameron Williamson',
+      language: 'Spanish',
+      gameOfChoice: 'Checkers',
+      totalRevenue: 84500,
+      added: '12 Apr 2024',
+      trend: '-6.72%',
+      lastUpdate: '16 Apr 2024'
+    },
+    {
+      user: 'Brooklyn Simmons',
+      language: 'Italian',
+      gameOfChoice: 'Backgammon',
+      totalRevenue: 56780,
+      added: '10 Apr 2024',
+      trend: '+4.89%',
+      lastUpdate: '14 Apr 2024'
+    },
+    {
+      user: 'Leslie Alexander',
+      language: 'Portuguese',
+      gameOfChoice: 'Shogi',
+      totalRevenue: 214000,
+      added: '08 Apr 2024',
+      trend: '+22.34%',
+      lastUpdate: '18 Apr 2024'
+    },
+    {
+      user: 'Ronald Richards',
+      language: 'Japanese',
+      gameOfChoice: 'Mahjong',
+      totalRevenue: 97650,
+      added: '05 Apr 2024',
+      trend: '-1.12%',
+      lastUpdate: '13 Apr 2024'
+    },
+    {
+      user: 'Kristin Watson',
+      language: 'Korean',
+      gameOfChoice: 'Baduk',
+      totalRevenue: 153400,
+      added: '02 Apr 2024',
+      trend: '+9.67%',
+      lastUpdate: '11 Apr 2024'
+    },
+    {
+      user: 'Eleanor Pena',
+      language: 'Hindi',
+      gameOfChoice: 'Pachisi',
+      totalRevenue: 43210,
+      added: '30 Mar 2024',
+      trend: '+1.98%',
+      lastUpdate: '09 Apr 2024'
+    },
+    {
+      user: 'Devon Lane',
+      language: 'English',
+      gameOfChoice: 'Scrabble',
+      totalRevenue: 72150,
+      added: '28 Mar 2024',
+      trend: '+6.34%',
+      lastUpdate: '08 Apr 2024'
+    },
+    {
+      user: 'Wade Warren',
+      language: 'Swedish',
+      gameOfChoice: 'Nine Men’s Morris',
+      totalRevenue: 189300,
+      added: '26 Mar 2024',
+      trend: '-2.45%',
+      lastUpdate: '07 Apr 2024'
+    },
+    {
+      user: 'Courtney Henry',
+      language: 'Russian',
+      gameOfChoice: 'Tetris',
+      totalRevenue: 254600,
+      added: '25 Mar 2024',
+      trend: '+14.78%',
+      lastUpdate: '06 Apr 2024'
+    },
+    {
+      user: 'Jerome Bell',
+      language: 'Arabic',
+      gameOfChoice: 'Mancala',
+      totalRevenue: 66740,
+      added: '23 Mar 2024',
+      trend: '+3.12%',
+      lastUpdate: '05 Apr 2024'
+    },
+    {
+      user: 'Floyd Miles',
+      language: 'Turkish',
+      gameOfChoice: 'Okey',
+      totalRevenue: 99820,
+      added: '21 Mar 2024',
+      trend: '-5.88%',
+      lastUpdate: '04 Apr 2024'
+    },
+    {
+      user: 'Bessie Cooper',
+      language: 'Thai',
+      gameOfChoice: 'Makruk',
+      totalRevenue: 141900,
+      added: '19 Mar 2024',
+      trend: '+11.05%',
+      lastUpdate: '03 Apr 2024'
+    },
+    {
+      user: 'Marvin McKinney',
+      language: 'Polish',
+      gameOfChoice: 'Szachy',
+      totalRevenue: 58230,
+      added: '18 Mar 2024',
+      trend: '+0.89%',
+      lastUpdate: '02 Apr 2024'
+    },
+    {
+      user: 'Annette Black',
+      language: 'Indonesian',
+      gameOfChoice: 'Congklak',
+      totalRevenue: 73460,
+      added: '16 Mar 2024',
+      trend: '-7.14%',
+      lastUpdate: '01 Apr 2024'
+    },
+    {
+      user: 'Dianne Russell',
+      language: 'Vietnamese',
+      gameOfChoice: 'Ô ăn quan',
+      totalRevenue: 49210,
+      added: '14 Mar 2024',
+      trend: '+2.67%',
+      lastUpdate: '31 Mar 2024'
+    },
+    {
+      user: 'Cody Fisher',
+      language: 'Chinese',
+      gameOfChoice: 'Xiangqi',
+      totalRevenue: 205880,
+      added: '12 Mar 2024',
+      trend: '+19.92%',
+      lastUpdate: '30 Mar 2024'
+    }
+  ];
+
+  columns: ColumnDef<User>[] = [
+    {
+      accessorKey: 'user',
+      header: 'User',
+      cell: info => info.getValue()
+    },
+    {
+      accessorKey: 'language',
+      header: 'Language',
+      cell: info => info.getValue()
+    },
+    {
+      accessorKey: 'gameOfChoice',
+      header: 'Game of Choice',
+      cell: info => info.getValue()
+    },
+    {
+      accessorKey: 'totalRevenue',
+      header: 'Total Revenue',
+      cell: info => `$${info.getValue()}`
+    },
+    {
+      accessorKey: 'added',
+      header: 'Added',
+      cell: info => info.getValue()
+    },
+    {
+      accessorKey: 'trend',
+      header: 'Trend',
+      cell: info => info.getValue()
+    },
+    {
+      accessorKey: 'lastUpdate',
+      header: 'Last Update',
+      cell: info => info.getValue()
+    }
+  ];
 }

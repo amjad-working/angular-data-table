@@ -1,7 +1,7 @@
 import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { DataTableComponent, TableConfig } from './components/data-table/data-table';
 import { ColumnDef } from '@tanstack/angular-table';
+import { DataTableComponent } from './shared/components/data-table/data-table';
 
 interface User {
   user: string;
@@ -20,14 +20,8 @@ interface User {
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('angular-table-app');
 
-  tableConfig: TableConfig = {
-    title: 'Leaderboard',
-    showSearch: true,
-    showPagination: true,
-    pageSize: 10
-  };
+  protected readonly title = signal('angular-table-app');
 
   data: User[] = [
     {
@@ -216,37 +210,40 @@ export class App {
     {
       accessorKey: 'user',
       header: 'User',
-      cell: info => info.getValue()
+      cell: row => row.getValue()
     },
     {
       accessorKey: 'language',
       header: 'Language',
-      cell: info => info.getValue()
+      cell: row => row.getValue()
     },
     {
       accessorKey: 'gameOfChoice',
       header: 'Game of Choice',
-      cell: info => info.getValue()
+      cell: row => row.getValue()
     },
     {
       accessorKey: 'totalRevenue',
       header: 'Total Revenue',
-      cell: info => `$${info.getValue()}`
+      cell: row => `$${row.getValue()}`
     },
     {
       accessorKey: 'added',
       header: 'Added',
-      cell: info => info.getValue()
+      cell: row => row.getValue()
     },
     {
       accessorKey: 'trend',
       header: 'Trend',
-      cell: info => info.getValue()
+      cell: row => row.getValue()
     },
     {
       accessorKey: 'lastUpdate',
       header: 'Last Update',
-      cell: info => info.getValue()
+      cell: row => row.getValue()
     }
   ];
 }
+
+// title: 'User Table',
+// description: 'A table displaying user information and their game preferences.',

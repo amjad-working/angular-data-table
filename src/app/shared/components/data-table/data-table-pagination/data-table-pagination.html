@@ -1,0 +1,28 @@
+<div>
+    <div>
+        Showing {{ paginationData().startIndex }}–{{ paginationData().endIndex }}
+        of {{ paginationData().totalRows }}
+    </div>
+
+    <div>
+        <button (click)="onFirstPage()" [disabled]="!paginationData().canPreviousPage">
+            ««
+        </button>
+
+        <button (click)="onPreviousPage()" [disabled]="!paginationData().canPreviousPage">
+            ‹
+        </button>
+
+        <span>
+            Page {{ paginationData().currentPage }} of {{ paginationData().pageCount }}
+        </span>
+
+        <button (click)="onNextPage()" [disabled]="!paginationData().canNextPage">
+            ›
+        </button>
+
+        <button (click)="onLastPage()" [disabled]="!paginationData().canNextPage">
+            »»
+        </button>
+    </div>
+</div>

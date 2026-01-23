@@ -1,0 +1,7 @@
+<div>
+    @if (search()) {
+    <div>
+        <input type="text" placeholder="Search..." [value]="searchValue()" (input)="onSearchInput($event)" />
+    </div>
+    }
+</div>

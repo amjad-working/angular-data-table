@@ -1,56 +1,57 @@
-<table>
+<div class="border rounded-md">
+    <table z-table>
 
-    <!-- Table Header -->
-    <thead>
-        @for (headerGroup of table().getHeaderGroups(); track headerGroup.id) {
-        <tr>
-            @for (header of headerGroup.headers; track header.id) {
-            <th [style.width.px]="header.getSize()" [class.sortable]="header.column.getCanSort()"
-                (click)="header.column.getToggleSortingHandler()?.($event)">
+        <!-- Table Header -->
+        <thead z-table-header>
+            @for (headerGroup of table().getHeaderGroups(); track headerGroup.id) {
+            <tr z-table-row>
+                @for (header of headerGroup.headers; track header.id) {
+                <th z-table-head [style.width.px]="header.getSize()" [class.sortable]="header.column.getCanSort()"
+                    (click)="header.column.getToggleSortingHandler()?.($event)"
+                    [class.cursor-pointer]="header.column.getCanSort()">
 
-                <div>
-                    @if (!header.isPlaceholder) {
-                    <!-- <ng-container [flexRender]="header.column.columnDef.header" [props]="header.getContext()">
+                    <div>
+                        @if (!header.isPlaceholder) {
+                        <!-- <ng-container [flexRender]="header.column.columnDef.header" [props]="header.getContext()">
                         </ng-container> -->
-                    {{header.getContext().column.columnDef.header}}
-                    }
+                        {{header.getContext().column.columnDef.header}}
+                        }
 
-                    @if (header.column.getIsSorted()) {
-                    <span>
-                        {{ header.column.getIsSorted() === 'asc' ? '↑' : '↓' }}
-                    </span>
-                    }
-                </div>
-            </th>
+                        @if (header.column.getIsSorted()) {
+                        <z-icon class="inline-block" [zType]="header.column.getIsSorted() === 'asc' ? 'chevron-up' : 'chevron-down'" />
+                        }
+                    </div>
+                </th>
+                }
+            </tr>
             }
-        </tr>
-        }
-    </thead>
+        </thead>
 
-    <!-- Table Body -->
-    <tbody>
-        @for (row of table().getRowModel().rows; track row.id) {
-        <tr>
-            @for (cell of row.getVisibleCells(); track cell.id) {
-            <td>
-                <!-- <ng-container [flexRender]="cell.column.columnDef.cell" [props]="cell.getContext()">
+        <!-- Table Body -->
+        <tbody z-table-body>
+            @for (row of table().getRowModel().rows; track row.id) {
+            <tr z-table-row>
+                @for (cell of row.getVisibleCells(); track cell.id) {
+                <td z-table-cell>
+                    <!-- <ng-container [flexRender]="cell.column.columnDef.cell" [props]="cell.getContext()">
                     </ng-container> -->
-                {{cell.getValue()}}
-            </td>
+                    {{cell.getValue()}}
+                </td>
+                }
+            </tr>
             }
-        </tr>
-        }
 
-        <!-- Empty State -->
-        @if (table().getRowModel().rows.length === 0) {
-        <tr>
-            <td [attr.colspan]="table().getAllColumns().length">
-                <div>
-                    <p>No data available</p>
-                </div>
-            </td>
-        </tr>
-        }
-    </tbody>
+            <!-- Empty State -->
+            @if (table().getRowModel().rows.length === 0) {
+            <tr z-table-row>
+                <td z-table-cell [attr.colspan]="table().getAllColumns().length">
+                    <div>
+                        <p>No data available</p>
+                    </div>
+                </td>
+            </tr>
+            }
+        </tbody>
 
-</table>
+    </table>
+</div>

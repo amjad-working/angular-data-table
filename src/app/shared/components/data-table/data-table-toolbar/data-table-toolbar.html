@@ -1,7 +1,8 @@
 <div>
     @if (search()) {
-    <div>
-        <input type="text" placeholder="Search..." [value]="searchValue()" (input)="onSearchInput($event)" />
-    </div>
+    <z-input-group [zAddonBefore]="search" class="mb-4">
+        <input z-input placeholder="Search..." [value]="searchValue()" (input)="onSearchInput($event)" />
+    </z-input-group>
+    <ng-template #search><z-icon zType="search" /></ng-template>
     }
 </div>

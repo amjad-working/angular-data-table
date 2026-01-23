@@ -1,5 +1,8 @@
 import { Component, input, output } from '@angular/core';
 import { Table } from '@tanstack/angular-table';
+import { ZardInputGroupComponent } from '../../input-group/input-group.component';
+import { ZardIconComponent } from '../../icon';
+import { ZardInputDirective } from '../../input';
 
 interface DataTableViewOptionsProps<TData> {
   table: Table<TData>;
@@ -10,7 +13,7 @@ interface DataTableViewOptionsProps<TData> {
 
 @Component({
   selector: 'app-data-table-toolbar',
-  imports: [],
+  imports: [ZardInputGroupComponent, ZardIconComponent, ZardInputDirective],
   templateUrl: './data-table-toolbar.html',
 })
 export class DataTableToolbar<TData> {

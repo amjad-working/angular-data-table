@@ -1,28 +1,28 @@
-<div>
-    <div>
+<div class="flex items-center gap-8 my-2 px-2">
+    <div class="text-sm text-slate-600">
         Showing {{ paginationData().startIndex }}–{{ paginationData().endIndex }}
         of {{ paginationData().totalRows }}
     </div>
 
-    <div>
-        <button (click)="onFirstPage()" [disabled]="!paginationData().canPreviousPage">
-            ««
+    <span class="text-sm ms-auto">
+        Page {{ paginationData().currentPage }} of {{ paginationData().pageCount }}
+    </span>
+
+    <div class="flex items-center gap-2">
+        <button z-button zType="outline" (click)="onFirstPage()" [zDisabled]="!paginationData().canPreviousPage">
+            <z-icon zSize="lg" zType="chevrons-left" />
         </button>
 
-        <button (click)="onPreviousPage()" [disabled]="!paginationData().canPreviousPage">
-            ‹
+        <button z-button zType="outline" (click)="onPreviousPage()" [zDisabled]="!paginationData().canPreviousPage">
+            <z-icon zSize="lg" zType="chevron-left" />
         </button>
 
-        <span>
-            Page {{ paginationData().currentPage }} of {{ paginationData().pageCount }}
-        </span>
-
-        <button (click)="onNextPage()" [disabled]="!paginationData().canNextPage">
-            ›
+        <button z-button zType="outline" (click)="onNextPage()" [zDisabled]="!paginationData().canNextPage">
+            <z-icon zSize="lg" zType="chevron-right" />
         </button>
 
-        <button (click)="onLastPage()" [disabled]="!paginationData().canNextPage">
-            »»
+        <button z-button zType="outline" (click)="onLastPage()" [zDisabled]="!paginationData().canNextPage">
+            <z-icon zSize="lg" zType="chevrons-right" />
         </button>
     </div>
 </div>

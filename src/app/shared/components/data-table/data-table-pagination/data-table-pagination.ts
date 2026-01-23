@@ -1,10 +1,12 @@
 import { CommonModule } from '@angular/common';
 import { Component, input, output } from '@angular/core';
 import { PaginationData } from '../data-table.types';
+import { ZardButtonComponent } from '../../button';
+import { ZardIconComponent } from '../../icon';
 
 @Component({
   selector: 'app-data-table-pagination',
-  imports: [CommonModule],
+  imports: [CommonModule, ZardButtonComponent, ZardIconComponent],
   templateUrl: './data-table-pagination.html',
 })
 export class DataTablePagination {

@@ -13,7 +13,7 @@ import {
 } from '@tanstack/angular-table';
 import { DataTableToolbar } from './data-table-toolbar/data-table-toolbar';
 import { DataTablePagination } from './data-table-pagination/data-table-pagination';
-import { PaginationData } from './data-table.types';
+import { PaginationData, ToolbarAction } from './data-table.types';
 import { NormalDataTable } from './normal-data-table/normal-data-table';
 
 @Component({
@@ -32,6 +32,10 @@ export class DataTableComponent<TData, TValue> {
   columns = input<ColumnDef<TData, TValue>[]>([]);
   search = input<boolean>(true);
   pageSize = input<number>(10);
+  actions = input<ToolbarAction[]>([]);
+  enableRowSelection = input<boolean>(false);
+  enableColumnVisibility = input<boolean>(false);
+  pageSizeOptions = input<number[]>([10, 20, 50, 100]);
 
   /* ----------------------------------------
    * Table State Signals
@@ -149,5 +153,17 @@ export class DataTableComponent<TData, TValue> {
 
   lastPage() {
     this.table.setPageIndex(this.pageCount() - 1);
+  }
+
+  onPageSizeChange(newSize: number) {
+    this.pagination.update(p => ({
+      ...p,
+      pageSize: newSize,
+      pageIndex: 0, // Reset to first page
+    }));
+  }
+
+  getSelectedRows() {
+    return this.table.getSelectedRowModel().rows.map(row => row.original);
   }
 }

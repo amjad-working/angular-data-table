@@ -1,10 +1,16 @@
-<div class="border rounded-md">
+<div class="border rounded-md ">
     <table z-table>
 
         <!-- Table Header -->
         <thead z-table-header>
             @for (headerGroup of table().getHeaderGroups(); track headerGroup.id) {
             <tr z-table-row>
+                @if (enableRowSelection()) {
+                <th z-table-head class="w-12">
+                    <span z-checkbox [ngModel]="table().getIsAllRowsSelected()"
+                        (ngModelChange)="table().toggleAllRowsSelected()"></span>
+                </th>
+                }
                 @for (header of headerGroup.headers; track header.id) {
                 <th z-table-head [style.width.px]="header.getSize()" [class.sortable]="header.column.getCanSort()"
                     (click)="header.column.getToggleSortingHandler()?.($event)"
@@ -18,7 +24,8 @@
                         }
 
                         @if (header.column.getIsSorted()) {
-                        <z-icon class="inline-block" [zType]="header.column.getIsSorted() === 'asc' ? 'chevron-up' : 'chevron-down'" />
+                        <z-icon class="inline-block"
+                            [zType]="header.column.getIsSorted() === 'asc' ? 'chevron-up' : 'chevron-down'" />
                         }
                     </div>
                 </th>
@@ -30,7 +37,12 @@
         <!-- Table Body -->
         <tbody z-table-body>
             @for (row of table().getRowModel().rows; track row.id) {
-            <tr z-table-row>
+            <tr z-table-row [attr.data-state]="row.getIsSelected() && 'selected'">
+                @if (enableRowSelection()) {
+                <td z-table-cell class="w-12">
+                    <span z-checkbox [ngModel]="row.getIsSelected()" (ngModelChange)="row.toggleSelected()"></span>
+                </td>
+                }
                 @for (cell of row.getVisibleCells(); track cell.id) {
                 <td z-table-cell>
                     <!-- <ng-container [flexRender]="cell.column.columnDef.cell" [props]="cell.getContext()">

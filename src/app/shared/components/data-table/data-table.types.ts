@@ -1,3 +1,6 @@
+import { ZardButtonTypeVariants } from "../button";
+import { ZardIcon } from "../icon";
+
 // Shared types for data table components
 export interface PaginationData {
     currentPage: number;
@@ -12,7 +15,12 @@ export interface PaginationData {
 // You can add more shared types here as needed
 export interface ToolbarAction {
     label: string;
-    icon?: string;
-    action: () => void;
+    icon?: ZardIcon;
+    onClick: () => void;
+    variant: ZardButtonTypeVariants;
     disabled?: boolean;
+}
+
+export interface ColumnVisibilityState {
+    [columnId: string]: boolean;
 }

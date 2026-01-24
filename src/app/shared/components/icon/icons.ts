@@ -34,6 +34,7 @@ import {
   Copy,
   CreditCard,
   DollarSign,
+  Download,
   Ellipsis,
   Eye,
   File,
@@ -194,6 +195,7 @@ export const ZARD_ICONS = {
   'user-plus': UserPlus,
   'credit-card': CreditCard,
   activity: Activity,
+  download: Download,
 } as const satisfies Record<string, LucideIconData>;
 
 export declare type ZardIcon = keyof typeof ZARD_ICONS | LucideIconData;

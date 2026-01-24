@@ -1,16 +1,18 @@
 <div class="table-container">
 
     <!-- Toolbar Component -->
-    <app-data-table-toolbar [search]="search()" [searchValue]="globalFilter()" (searchChange)="onSearchChange($event)">
+    <app-data-table-toolbar [search]="search()" [searchValue]="globalFilter()" [actions]="actions()"
+        (searchChange)="onSearchChange($event)">
     </app-data-table-toolbar>
 
     <!-- Table Component -->
-    <app-normal-data-table [table]="table">
+    <app-normal-data-table [table]="table" [enableRowSelection]="enableRowSelection()">
     </app-normal-data-table>
 
     <!-- Pagination Component -->
     <app-data-table-pagination [paginationData]="paginationData()" (firstPage)="firstPage()" (previousPage)="prevPage()"
-        (nextPage)="nextPage()" (lastPage)="lastPage()">
+        (nextPage)="nextPage()" (lastPage)="lastPage()" [pageSizeOptions]="pageSizeOptions()"
+        (pageSizeChange)="onPageSizeChange($event)">
     </app-data-table-pagination>
 
 </div>

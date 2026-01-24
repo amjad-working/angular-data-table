@@ -2,6 +2,7 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ColumnDef } from '@tanstack/angular-table';
 import { DataTableComponent } from './shared/components/data-table/data-table';
+import { ToolbarAction } from './shared/components/data-table/data-table.types';
 
 interface User {
   user: string;
@@ -23,6 +24,7 @@ export class App {
 
   protected readonly title = signal('angular-table-app');
 
+  // Sample Data
   data: User[] = [
     {
       user: 'Jane Cooper',
@@ -206,6 +208,7 @@ export class App {
     }
   ];
 
+  // Column Definitions
   columns: ColumnDef<User>[] = [
     {
       accessorKey: 'user',
@@ -243,6 +246,29 @@ export class App {
       cell: row => row.getValue()
     }
   ];
+
+  // Toolbar Actions
+  toolbarActions = signal<ToolbarAction[]>([
+    {
+      label: 'Add New',
+      variant: 'default',
+      icon: 'plus',
+      onClick: () => console.log('Add new user clicked'),
+    },
+    {
+      label: 'Export',
+      variant: 'outline',
+      icon: 'download',
+      onClick: () => console.log('Export data clicked'),
+    },
+    {
+      label: 'Delete Selected',
+      variant: 'destructive',
+      icon: 'trash',
+      onClick: () => console.log('Delete selected clicked'),
+      disabled: false, // You can make this reactive based on selection
+    },
+  ]);
 }
 
 // title: 'User Table',

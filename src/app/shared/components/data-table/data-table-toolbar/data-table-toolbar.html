@@ -1,4 +1,4 @@
-<div class=" flex items-center justify-between gap-4 mb-4">
+<div class=" flex items-center gap-4 mb-4">
 
     @if (search()) {
     <z-input-group [zAddonBefore]="searchIcon" class="w-56">
@@ -7,8 +7,8 @@
     <ng-template #searchIcon><z-icon zType="search" /></ng-template>
     }
 
-    @if (actions().length > 0) {
-    <div class="flex gap-2">
+    <div class="flex gap-2 ms-auto">
+        @if (actions().length > 0) {
         @for (action of actions(); track action.label) {
         <button z-button [zType]="action.variant" (click)="action.onClick()" [zDisabled]="action.disabled">
             @if(action.icon) {
@@ -17,7 +17,25 @@
             {{ action.label }}
         </button>
         }
+        }
+        @if(enableColumnVisibility()){
+        <button z-button zType="outline" z-dropdown [zDropdownMenu]="menu" zPlacement="bottomRight">
+            <z-icon zType="settings-2" zSize="lg" />
+            View
+        </button>
+        <z-dropdown-menu-content #menu="zDropdownMenuContent">
+            <z-menu-label>Toggle columns</z-menu-label>
+            @for (column of table().getAllColumns(); track $index) {
+            @if(typeof column.accessorFn !== "undefined" && column.getCanHide()){
+            <z-dropdown-menu-item (click)="column.toggleVisibility()">
+                <span z-checkbox [ngModel]="column.getIsVisible()">
+                    {{column.columnDef.header}}
+                </span>
+            </z-dropdown-menu-item>
+            }
+            }
+        </z-dropdown-menu-content>
+        }
     </div>
 
-    }
 </div>

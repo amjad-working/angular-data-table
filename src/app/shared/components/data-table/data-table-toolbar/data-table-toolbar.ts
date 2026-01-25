@@ -5,14 +5,20 @@ import { ZardIconComponent } from '../../icon';
 import { ZardInputDirective } from '../../input';
 import { ToolbarAction } from '../data-table.types';
 import { ZardButtonComponent } from '../../button';
+import { ZardMenuImports } from '../../menu';
+import { ZardDropdownImports } from '../../dropdown';
+import { ZardCheckboxComponent } from '../../checkbox';
+import { CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-data-table-toolbar',
-  imports: [ZardInputGroupComponent, ZardIconComponent, ZardInputDirective, ZardButtonComponent],
+  imports: [FormsModule, CommonModule, ZardInputGroupComponent, ZardIconComponent, ZardInputDirective, ZardButtonComponent, ZardMenuImports, ZardDropdownImports, ZardCheckboxComponent],
   templateUrl: './data-table-toolbar.html',
 })
 export class DataTableToolbar<TData> {
 
+  table = input.required<Table<TData>>();
   // Inputs
   search = input(false);
   searchValue = input('');
@@ -21,6 +27,7 @@ export class DataTableToolbar<TData> {
 
   // Outputs
   searchChange = output<string>();
+  enableColumnVisibility = input(false);
   columnVisibilityClick = output<void>();
 
   // Event handler

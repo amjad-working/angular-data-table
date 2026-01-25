@@ -24,3 +24,14 @@ export interface ToolbarAction {
 export interface ColumnVisibilityState {
     [columnId: string]: boolean;
 }
+
+export interface RowAction<T> {
+    label: string;
+    icon?: string;
+    disabled?: boolean;
+    action: (row: T) => void;
+}
+
+export interface AppColumnMeta<TData> {
+  actions?: (row: TData) => RowAction<TData>[];
+}

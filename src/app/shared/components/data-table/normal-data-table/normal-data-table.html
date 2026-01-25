@@ -15,8 +15,7 @@
                 <th z-table-head [style.width.px]="header.getSize()" [class.sortable]="header.column.getCanSort()"
                     (click)="header.column.getToggleSortingHandler()?.($event)"
                     [class.cursor-pointer]="header.column.getCanSort()">
-
-                    <div>
+                    <div [class.text-right]="header.column.id === 'actions'">
                         @if (!header.isPlaceholder) {
                         <!-- <ng-container [flexRender]="header.column.columnDef.header" [props]="header.getContext()">
                         </ng-container> -->
@@ -44,11 +43,36 @@
                 </td>
                 }
                 @for (cell of row.getVisibleCells(); track cell.id) {
+                @switch (cell.column.id) {
+                @case('actions') {
+                <td z-table-cell class="text-right">
+                    <button z-button zType="outline" z-menu zTrigger="click" [zMenuTriggerFor]="productsMenu"
+                        [zPlacement]="'bottomRight'">
+                        <z-icon zType="ellipsis" zSize="lg" />
+                    </button>
+                    <ng-template #productsMenu>
+                        <div z-menu-content class="w-30">
+                            @for (action of metaActions(row,cell); track $index) {
+                            @if(action.label == 'Delete'){<z-divider zSpacing="sm" class="-mx-1" />}
+                            <button type="button" z-menu-item class="cursor-pointer"
+                                (click)="action.action(row.original)"
+                                [zType]="action.label == 'Delete' ? 'destructive' : 'default'">
+                                <z-icon [zType]="action.icon" zSize="lg" />
+                                {{action.label}}
+                            </button>
+                            }
+                        </div>
+                    </ng-template>
+                </td>
+                }
+                @default {
                 <td z-table-cell>
                     <!-- <ng-container [flexRender]="cell.column.columnDef.cell" [props]="cell.getContext()">
                     </ng-container> -->
                     {{cell.getValue()}}
                 </td>
+                }
+                }
                 }
             </tr>
             }

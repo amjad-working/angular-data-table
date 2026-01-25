@@ -2,9 +2,10 @@ import { Component, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 import { ColumnDef } from '@tanstack/angular-table';
 import { DataTableComponent } from './shared/components/data-table/data-table';
-import { ToolbarAction } from './shared/components/data-table/data-table.types';
+import { RowAction, ToolbarAction } from './shared/components/data-table/data-table.types';
 
 interface User {
+  id: number;
   user: string;
   language: string;
   gameOfChoice: string;
@@ -25,8 +26,9 @@ export class App {
   protected readonly title = signal('angular-table-app');
 
   // Sample Data
-  data: User[] = [
+  tableData = signal<User[]>([
     {
+      id: 1,
       user: 'Jane Cooper',
       language: 'English',
       gameOfChoice: 'Chess',
@@ -36,6 +38,7 @@ export class App {
       lastUpdate: '21 Apr 2024'
     },
     {
+      id: 2,
       user: 'Arlene McCoy',
       language: 'German',
       gameOfChoice: 'Rithmomachy',
@@ -45,6 +48,7 @@ export class App {
       lastUpdate: '17 Apr 2024'
     },
     {
+      id: 3,
       user: 'Darrell Steward',
       language: 'Dutch',
       gameOfChoice: 'Hare and Hounds',
@@ -54,6 +58,7 @@ export class App {
       lastUpdate: '28 Mar 2024'
     },
     {
+      id: 4,
       user: 'Savannah Nguyen',
       language: 'French',
       gameOfChoice: 'Go',
@@ -63,6 +68,7 @@ export class App {
       lastUpdate: '19 Apr 2024'
     },
     {
+      id: 5,
       user: 'Cameron Williamson',
       language: 'Spanish',
       gameOfChoice: 'Checkers',
@@ -72,6 +78,7 @@ export class App {
       lastUpdate: '16 Apr 2024'
     },
     {
+      id: 6,
       user: 'Brooklyn Simmons',
       language: 'Italian',
       gameOfChoice: 'Backgammon',
@@ -81,6 +88,7 @@ export class App {
       lastUpdate: '14 Apr 2024'
     },
     {
+      id: 7,
       user: 'Leslie Alexander',
       language: 'Portuguese',
       gameOfChoice: 'Shogi',
@@ -90,6 +98,7 @@ export class App {
       lastUpdate: '18 Apr 2024'
     },
     {
+      id: 8,
       user: 'Ronald Richards',
       language: 'Japanese',
       gameOfChoice: 'Mahjong',
@@ -99,6 +108,7 @@ export class App {
       lastUpdate: '13 Apr 2024'
     },
     {
+      id: 9,
       user: 'Kristin Watson',
       language: 'Korean',
       gameOfChoice: 'Baduk',
@@ -108,6 +118,7 @@ export class App {
       lastUpdate: '11 Apr 2024'
     },
     {
+      id: 10,
       user: 'Eleanor Pena',
       language: 'Hindi',
       gameOfChoice: 'Pachisi',
@@ -117,6 +128,7 @@ export class App {
       lastUpdate: '09 Apr 2024'
     },
     {
+      id: 11,
       user: 'Devon Lane',
       language: 'English',
       gameOfChoice: 'Scrabble',
@@ -126,6 +138,7 @@ export class App {
       lastUpdate: '08 Apr 2024'
     },
     {
+      id: 12,
       user: 'Wade Warren',
       language: 'Swedish',
       gameOfChoice: 'Nine Men’s Morris',
@@ -135,6 +148,7 @@ export class App {
       lastUpdate: '07 Apr 2024'
     },
     {
+      id: 13,
       user: 'Courtney Henry',
       language: 'Russian',
       gameOfChoice: 'Tetris',
@@ -144,6 +158,7 @@ export class App {
       lastUpdate: '06 Apr 2024'
     },
     {
+      id: 14,
       user: 'Jerome Bell',
       language: 'Arabic',
       gameOfChoice: 'Mancala',
@@ -153,6 +168,7 @@ export class App {
       lastUpdate: '05 Apr 2024'
     },
     {
+      id: 15,
       user: 'Floyd Miles',
       language: 'Turkish',
       gameOfChoice: 'Okey',
@@ -162,6 +178,7 @@ export class App {
       lastUpdate: '04 Apr 2024'
     },
     {
+      id: 16,
       user: 'Bessie Cooper',
       language: 'Thai',
       gameOfChoice: 'Makruk',
@@ -171,6 +188,7 @@ export class App {
       lastUpdate: '03 Apr 2024'
     },
     {
+      id: 17,
       user: 'Marvin McKinney',
       language: 'Polish',
       gameOfChoice: 'Szachy',
@@ -180,6 +198,7 @@ export class App {
       lastUpdate: '02 Apr 2024'
     },
     {
+      id: 18,
       user: 'Annette Black',
       language: 'Indonesian',
       gameOfChoice: 'Congklak',
@@ -189,6 +208,7 @@ export class App {
       lastUpdate: '01 Apr 2024'
     },
     {
+      id: 19,
       user: 'Dianne Russell',
       language: 'Vietnamese',
       gameOfChoice: 'Ô ăn quan',
@@ -198,6 +218,7 @@ export class App {
       lastUpdate: '31 Mar 2024'
     },
     {
+      id: 20,
       user: 'Cody Fisher',
       language: 'Chinese',
       gameOfChoice: 'Xiangqi',
@@ -206,14 +227,15 @@ export class App {
       trend: '+19.92%',
       lastUpdate: '30 Mar 2024'
     }
-  ];
+  ]);
 
   // Column Definitions
   columns: ColumnDef<User>[] = [
     {
       accessorKey: 'user',
       header: 'User',
-      cell: row => row.getValue()
+      cell: row => row.getValue(),
+      enableHiding: false
     },
     {
       accessorKey: 'language',
@@ -244,7 +266,33 @@ export class App {
       accessorKey: 'lastUpdate',
       header: 'Last Update',
       cell: row => row.getValue()
-    }
+    },
+    {
+      id: 'actions',
+      header: 'Actions',
+      enableSorting: false,
+      enableHiding: false,
+      meta: {
+        actions: (row: any): RowAction<any>[] => [
+          {
+            label: 'View',
+            icon: 'eye',
+            action: () => this.onView(row),
+          },
+          {
+            label: 'Edit',
+            icon: 'pencil',
+            action: () => this.onEdit(row),
+          },
+          {
+            label: 'Delete',
+            icon: 'trash',
+            disabled: row.status === 'deleted',
+            action: () => this.onDelete(row),
+          },
+        ],
+      },
+    },
   ];
 
   // Toolbar Actions
@@ -253,22 +301,56 @@ export class App {
       label: 'Add New',
       variant: 'default',
       icon: 'plus',
-      onClick: () => console.log('Add new user clicked'),
+      onClick: () => this.addNewUser(),
     },
     {
-      label: 'Export',
+      label: '',
       variant: 'outline',
       icon: 'download',
-      onClick: () => console.log('Export data clicked'),
-    },
-    {
-      label: 'Delete Selected',
-      variant: 'destructive',
-      icon: 'trash',
-      onClick: () => console.log('Delete selected clicked'),
-      disabled: false, // You can make this reactive based on selection
-    },
+      onClick: () => this.exportData(),
+    }
   ]);
+
+  addNewUser() {
+    console.log('Add new user clicked');
+    const newUser: User = {
+      id: this.tableData().length + 1,
+      user: 'New User',
+      language: 'English',
+      gameOfChoice: 'Chess',
+      totalRevenue: 0,
+      added: new Date().toLocaleDateString(),
+      trend: '+0.00%',
+      lastUpdate: new Date().toLocaleDateString()
+    };
+    this.tableData.update(data => [...data, newUser]);
+  }
+
+  onView(row: any) {
+    console.log('View action clicked for row:', row);
+    // Implement view logic here
+  }
+
+  onEdit(row: any) {
+    console.log('Edit action clicked for row:', row);
+    // Implement edit logic here
+  }
+
+  onDelete(row: any) {
+    console.log('Delete action clicked for row:', row);
+    const res = confirm(`Are you sure you want to delete user: ${row.user}?`);
+    if (res) {
+      this.tableData.update(data => data.filter(user => user.id !== row.id));
+    }
+  }
+
+  exportData() {
+    console.log('Export data clicked');
+    const data = this.tableData();
+    const json = JSON.stringify(data, null, 2);
+    console.log('Exported data:', json);
+    // You can implement actual export logic here
+  }
 }
 
 // title: 'User Table',

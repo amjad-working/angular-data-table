@@ -1,13 +1,18 @@
 import { Component, input } from '@angular/core';
-import { Table } from '@tanstack/angular-table';
-import { ZardTableComponent } from '../../table';
-import { ZardIconComponent } from '../../icon';
-import { ZardCheckboxComponent } from '../../checkbox';
 import { FormsModule } from '@angular/forms';
+import { Table } from '@tanstack/angular-table';
+import { ZardButtonComponent } from '../../button';
+import { ZardCheckboxComponent } from '../../checkbox';
+import { ZardDividerComponent } from '../../divider';
+import { ZardIconComponent } from '../../icon';
+import { ZardMenuImports } from '../../menu';
+import { ZardTableComponent } from '../../table';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-normal-data-table',
-  imports: [FormsModule,ZardTableComponent, ZardIconComponent,ZardCheckboxComponent],
+  imports: [CommonModule, FormsModule, ZardButtonComponent, ZardTableComponent, ZardIconComponent, ZardCheckboxComponent,
+    ZardMenuImports, ZardDividerComponent],
   templateUrl: './normal-data-table.html',
 })
 export class NormalDataTable<TData> {
@@ -17,4 +22,7 @@ export class NormalDataTable<TData> {
   enableRowSelection = input(false);
   enableColumnVisibility = input(false);
 
+  metaActions(row: any, cell: any) {
+    return cell.column.columnDef.meta?.actions(row.original);
+  }
 }

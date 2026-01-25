@@ -64,12 +64,14 @@ import {
   MoveRight,
   Palette,
   PanelLeft,
+  Pencil,
   Plus,
   Popcorn,
   Puzzle,
   Save,
   Search,
   Settings,
+  Settings2,
   Shield,
   Smartphone,
   Sparkles,
@@ -105,6 +107,7 @@ const DarkMode: LucideIconData = [
 export const ZARD_ICONS = {
   house: House,
   settings: Settings,
+  'settings-2': Settings2,
   user: User,
   search: Search,
   bell: Bell,
@@ -196,6 +199,7 @@ export const ZARD_ICONS = {
   'credit-card': CreditCard,
   activity: Activity,
   download: Download,
+  pencil: Pencil
 } as const satisfies Record<string, LucideIconData>;
 
 export declare type ZardIcon = keyof typeof ZARD_ICONS | LucideIconData;

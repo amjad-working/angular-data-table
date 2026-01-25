@@ -2,7 +2,7 @@
 
     <!-- Toolbar Component -->
     <app-data-table-toolbar [search]="search()" [searchValue]="globalFilter()" [actions]="actions()"
-        (searchChange)="onSearchChange($event)">
+        [enableColumnVisibility]="enableColumnVisibility()" (searchChange)="onSearchChange($event)" [table]="table">
     </app-data-table-toolbar>
 
     <!-- Table Component -->
@@ -10,9 +10,9 @@
     </app-normal-data-table>
 
     <!-- Pagination Component -->
-    <app-data-table-pagination [paginationData]="paginationData()" (firstPage)="firstPage()" (previousPage)="prevPage()"
-        (nextPage)="nextPage()" (lastPage)="lastPage()" [pageSizeOptions]="pageSizeOptions()"
-        (pageSizeChange)="onPageSizeChange($event)">
+    <app-data-table-pagination [paginationData]="paginationData()" [pageSizeOptions]="pageSizeOptions()"
+        [currentPageSize]="pagination().pageSize" (firstPage)="firstPage()" (previousPage)="prevPage()"
+        (nextPage)="nextPage()" (lastPage)="lastPage()" (pageSizeChange)="onPageSizeChange($event)">
     </app-data-table-pagination>
 
 </div>

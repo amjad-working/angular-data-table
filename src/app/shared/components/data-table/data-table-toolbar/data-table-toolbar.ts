@@ -10,10 +10,12 @@ import { ZardDropdownImports } from '../../dropdown';
 import { ZardCheckboxComponent } from '../../checkbox';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { DataTableFilters } from '../data-table-filters/data-table-filters';
 
 @Component({
   selector: 'app-data-table-toolbar',
-  imports: [FormsModule, CommonModule, ZardInputGroupComponent, ZardIconComponent, ZardInputDirective, ZardButtonComponent, ZardMenuImports, ZardDropdownImports, ZardCheckboxComponent],
+  imports: [FormsModule, CommonModule, ZardInputGroupComponent, ZardIconComponent, ZardInputDirective,
+    ZardButtonComponent, ZardMenuImports, ZardDropdownImports, ZardCheckboxComponent, DataTableFilters],
   templateUrl: './data-table-toolbar.html',
 })
 export class DataTableToolbar<TData> {

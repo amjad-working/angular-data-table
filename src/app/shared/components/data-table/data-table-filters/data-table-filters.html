@@ -1,0 +1,11 @@
+<div class="flex gap-4">
+    @for (cell of table().getAllColumns(); track $index) {
+    @if(getMeta(cell,'type') == "single-select"){
+    <z-select class="w-fit" [zPlaceholder]="getMeta(cell,'placeholder')">
+        @for (option of getMeta(cell,'filterOptions'); track $index) {
+        <z-select-item [zValue]="option.value">{{option.label}}</z-select-item>
+        }
+    </z-select>
+    }
+    }
+</div>

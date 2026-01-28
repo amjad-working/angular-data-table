@@ -7,6 +7,8 @@
     <ng-template #searchIcon><z-icon zType="search" /></ng-template>
     }
 
+    <app-data-table-filters [table]="table()"></app-data-table-filters>
+
     <div class="flex gap-2 ms-auto">
         @if (actions().length > 0) {
         @for (action of actions(); track action.label) {

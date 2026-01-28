@@ -27,7 +27,7 @@ export interface ColumnVisibilityState {
 
 export interface RowAction<T> {
     label: string;
-    icon?: string;
+    icon?: ZardIcon;
     disabled?: boolean;
     action: (row: T) => void;
 }

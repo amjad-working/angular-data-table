@@ -3,6 +3,7 @@ import { RouterOutlet } from '@angular/router';
 import { ColumnDef } from '@tanstack/angular-table';
 import { DataTableComponent } from './shared/components/data-table/data-table';
 import { RowAction, ToolbarAction } from './shared/components/data-table/data-table.types';
+import { Eye, Pencil, Trash } from 'lucide-angular';
 
 interface User {
   id: number;
@@ -234,18 +235,42 @@ export class App {
     {
       accessorKey: 'user',
       header: 'User',
-      cell: row => row.getValue(),
       enableHiding: false
     },
     {
       accessorKey: 'language',
       header: 'Language',
-      cell: row => row.getValue()
+      meta: {
+        label: "Language Spoken",
+        type: "single-select",
+        placeholder: "Filter by Language",
+        icon: "globe",
+        filterOptions: [
+          { label: 'English', value: 'English' },
+          { label: 'German', value: 'German' },
+          { label: 'Dutch', value: 'Dutch' },
+          { label: 'French', value: 'French' },
+          { label: 'Spanish', value: 'Spanish' },
+          { label: 'Italian', value: 'Italian' },
+          { label: 'Portuguese', value: 'Portuguese' },
+          { label: 'Japanese', value: 'Japanese' },
+          { label: 'Korean', value: 'Korean' },
+          { label: 'Hindi', value: 'Hindi' },
+          { label: 'Swedish', value: 'Swedish' },
+          { label: 'Russian', value: 'Russian' },
+          { label: 'Arabic', value: 'Arabic' },
+          { label: 'Turkish', value: 'Turkish' },
+          { label: 'Thai', value: 'Thai' },
+          { label: 'Polish', value: 'Polish' },
+          { label: 'Indonesian', value: 'Indonesian' },
+          { label: 'Vietnamese', value: 'Vietnamese' },
+          { label: 'Chinese', value: 'Chinese' },
+        ]
+      }
     },
     {
       accessorKey: 'gameOfChoice',
       header: 'Game of Choice',
-      cell: row => row.getValue()
     },
     {
       accessorKey: 'totalRevenue',
@@ -255,17 +280,14 @@ export class App {
     {
       accessorKey: 'added',
       header: 'Added',
-      cell: row => row.getValue()
     },
     {
       accessorKey: 'trend',
       header: 'Trend',
-      cell: row => row.getValue()
     },
     {
       accessorKey: 'lastUpdate',
       header: 'Last Update',
-      cell: row => row.getValue()
     },
     {
       id: 'actions',
@@ -276,17 +298,17 @@ export class App {
         actions: (row: any): RowAction<any>[] => [
           {
             label: 'View',
-            icon: 'eye',
+            icon: Eye,
             action: () => this.onView(row),
           },
           {
             label: 'Edit',
-            icon: 'pencil',
+            icon: Pencil,
             action: () => this.onEdit(row),
           },
           {
             label: 'Delete',
-            icon: 'trash',
+            icon: Trash,
             disabled: row.status === 'deleted',
             action: () => this.onDelete(row),
           },

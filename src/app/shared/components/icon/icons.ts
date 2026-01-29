@@ -43,11 +43,13 @@ import {
   FolderCode,
   FolderOpen,
   FolderPlus,
+  Gamepad2,
   Heart,
   House,
   Inbox,
   Info,
   Italic,
+  Languages,
   Layers,
   Layers2,
   LayoutDashboard,
@@ -199,7 +201,9 @@ export const ZARD_ICONS = {
   'credit-card': CreditCard,
   activity: Activity,
   download: Download,
-  pencil: Pencil
+  pencil: Pencil,
+  languages: Languages,
+  'gamepad-2': Gamepad2,
 } as const satisfies Record<string, LucideIconData>;
 
 export declare type ZardIcon = keyof typeof ZARD_ICONS | LucideIconData;

@@ -241,10 +241,10 @@ export class App {
       accessorKey: 'language',
       header: 'Language',
       meta: {
-        label: "Language Spoken",
+        label: "Language",
         type: "single-select",
         placeholder: "Filter by Language",
-        icon: "globe",
+        icon: "languages",
         filterOptions: [
           { label: 'English', value: 'English' },
           { label: 'German', value: 'German' },
@@ -266,11 +266,45 @@ export class App {
           { label: 'Vietnamese', value: 'Vietnamese' },
           { label: 'Chinese', value: 'Chinese' },
         ]
-      }
+      },
     },
     {
       accessorKey: 'gameOfChoice',
       header: 'Game of Choice',
+      meta: {
+        label: "Game",
+        type: "multi-select",
+        placeholder: "Filter by Game",
+        icon: "gamepad-2",
+        filterOptions: [
+          { label: 'Chess', value: 'Chess' },
+          { label: 'Rithmomachy', value: 'Rithmomachy' },
+          { label: 'Hare and Hounds', value: 'Hare and Hounds' },
+          { label: 'Go', value: 'Go' },
+          { label: 'Checkers', value: 'Checkers' },
+          { label: 'Backgammon', value: 'Backgammon' },
+          { label: 'Shogi', value: 'Shogi' },
+          { label: 'Mahjong', value: 'Mahjong' },
+          { label: 'Baduk', value: 'Baduk' },
+          { label: 'Pachisi', value: 'Pachisi' },
+          { label: 'Scrabble', value: 'Scrabble' },
+          { label: 'Nine Men’s Morris', value: 'Nine Men’s Morris' },
+          { label: 'Tetris', value: 'Tetris' },
+          { label: 'Mancala', value: 'Mancala' },
+          { label: 'Okey', value: 'Okey' },
+          { label: 'Makruk', value: 'Makruk' },
+          { label: 'Szachy', value: 'Szachy' },
+          { label: 'Congklak', value: 'Congklak' },
+          { label: 'Ô ăn quan', value: 'Ô ăn quan' },
+          { label: 'Xiangqi', value: 'Xiangqi' },
+        ],
+      },
+      filterFn: (row, columnId, filterValue: string[]) => {
+        if (!filterValue || filterValue.length === 0) return true;
+        const cellValue = row?.getValue<string>(columnId);
+        // return filterValue.includes(cellValue);
+        return filterValue.some(value => cellValue === value);
+      },
     },
     {
       accessorKey: 'totalRevenue',

@@ -63,7 +63,7 @@ const COMPACT_MODE_WIDTH_THRESHOLD = 100;
       (click)="toggle()"
       (focus)="onFocus()"
     >
-      <span class="flex flex-1 flex-wrap items-center gap-2">
+      <span class="flex flex-1 flex-wrap items-center gap-2 truncate">
         @let labels = selectedLabels();
         @for (label of labels; track index; let index = $index) {
           <ng-container *ngTemplateOutlet="labelsTemplate; context: { $implicit: label }" />

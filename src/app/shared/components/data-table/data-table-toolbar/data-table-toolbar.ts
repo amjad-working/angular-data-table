@@ -1,7 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component, input, output, signal } from '@angular/core';
+import { Component, input, output, signal, viewChild } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { Table } from '@tanstack/angular-table';
+import { Column, ColumnDef, Table } from '@tanstack/angular-table';
 import { ZardButtonComponent } from '../../button';
 import { ZardButtonGroupComponent, ZardButtonGroupTextDirective } from '../../button-group';
 import { ZardCheckboxComponent } from '../../checkbox';
@@ -13,6 +13,12 @@ import { ZardMenuImports } from '../../menu';
 import { ZardPopoverComponent, ZardPopoverDirective } from '../../popover';
 import { ZardSelectImports } from '../../select';
 import { ToolbarAction } from '../data-table.types';
+
+export interface IFilter {
+  id: string,
+  header: string,
+  value: string,
+}
 
 @Component({
   selector: 'app-data-table-toolbar',
@@ -33,6 +39,8 @@ import { ToolbarAction } from '../data-table.types';
 })
 export class DataTableToolbar<TData> {
 
+  readonly advFilterTrigger = viewChild.required('advFilterTrigger', { read: ZardPopoverDirective });
+
   // Inputs
   table = input.required<Table<TData>>();
   search = input(false);
@@ -45,18 +53,14 @@ export class DataTableToolbar<TData> {
   enableColumnVisibility = input(false);
   columnVisibilityClick = output<void>();
 
-  advancedFilter = signal([
+  advancedFilter = signal<IFilter[]>([
     {
+      id: "",
       header: "",
       value: ""
-    },
-    {
-      header: "",
-      value: ""
-    },
+    }
   ])
 
-  // Event handler
   onSearchInput(event: Event) {
     const value = (event.target as HTMLInputElement).value;
     this.searchChange.emit(value);
@@ -66,7 +70,7 @@ export class DataTableToolbar<TData> {
     this.columnVisibilityClick.emit();
   }
 
-  // Filters
+  // Helper Function
   getMeta(cell: any, key: string) {
     return cell.columnDef.meta?.[key];
   }
@@ -74,6 +78,12 @@ export class DataTableToolbar<TData> {
   get isAnyFilterActive() {
     return Object.keys(this.table().getState().columnFilters).length > 0;
   }
+
+  getHeaderValue(header: any) {
+    return header;
+  }
+
+  // Filters
   resetColumnFilters() {
     this.table().getAllColumns().forEach((column: any) => {
       const meta = column.columnDef.meta;
@@ -84,6 +94,7 @@ export class DataTableToolbar<TData> {
         meta.value = '';
       }
     });
+    this.advancedFilter.set([{ id: "", header: "", value: "" }])
     this.table().resetColumnFilters();
   }
 
@@ -97,7 +108,28 @@ export class DataTableToolbar<TData> {
     }
   }
 
-  getHeaderValue(header: any) {
-    return header;
+  // Advanced Filters
+  addFilter() {
+    this.advancedFilter.update((data: IFilter[]) => [...data, {
+      id: "",
+      header: "",
+      value: ""
+    }]);
   }
+
+  removeFilter(index: number) {
+    this.advancedFilter.update((data: IFilter[]) =>
+      data.filter((_, i) => i !== index)
+    )
+  }
+
+  applyFilter() {
+    this.table().getAllColumns().forEach((column) => {
+      const selectedCol = this.advancedFilter().find(f => f.id === column.id)
+      if (selectedCol?.id) {
+        column.setFilterValue(selectedCol?.value);
+      }
+    })
+  }
+
 }

@@ -10,70 +10,85 @@
     <!-- Filters -->
     <div class="flex gap-4">
 
-        <button z-button zType="outline" zPopover [zContent]="interactiveContent" zType="outline">
+        <button z-button zType="outline" zPopover [zContent]="advFilterContent" zType="outline" #advFilterTrigger>
             <z-icon zType="list-filter-plus" zSize="lg" />
             Filter
         </button>
 
-        <ng-template #interactiveContent>
-            <z-popover class="w-96">
-                <div class="space-y-4">
-                    <div class="space-y-2">
-                        <h4 class="leading-none font-medium">Filters</h4>
-                        <p class="text-muted-foreground text-sm">Manage your account settings.</p>
-                    </div>
+        <ng-template #advFilterContent>
+            <z-popover class="w-96 p-0">
+                <header class="px-3 py-2 flex items-center justify-between border-b">
+                    <h4 class="leading-none font-medium">Filters</h4>
+                    <button z-button zType="ghost" zSize="sm" (click)="this.advFilterTrigger().hide()">
+                        <z-icon zType="x" zSize="lg" />
+                    </button>
+                </header>
+
+                <div class="space-y-4 p-3">
                     @for (filter of advancedFilter(); track $index) {
                     <div class="flex gap-2">
-                        <z-select class="min-w-32 max-w-32" [zValue]="filter.value" zPlaceholder="Select">
+                        <z-select class="min-w-32 max-w-32" [(zValue)]="filter.header" zPlaceholder="Select">
                             @for (column of table().getAllColumns(); track $index) {
-                            <z-select-item
-                                [zValue]="getHeaderValue(column.columnDef.header)">{{column.columnDef.header}}</z-select-item>
+                            <z-select-item [zValue]="getHeaderValue(column.columnDef.header)"
+                                (click)="filter.id = column.id">
+                                {{column.columnDef.header}}
+                            </z-select-item>
                             }
                         </z-select>
-                        <input z-input placeholder="Enter the vlaue..." />
-                        <button z-button zType="destructive">
+                        <input z-input [(ngModel)]="filter.value" placeholder="Enter the vlaue..." />
+                        @if(advancedFilter().length > 1){
+                        <button z-button zType="ghost" zSize="sm" (click)="removeFilter($index)">
                             <z-icon zType="trash" zSize="lg" />
                         </button>
+                        }
                     </div>
                     }
-                    <!-- <z-icon zType="action.icon" zSize="lg" /> -->
-                    <div class="flex gap-2">
-                        <button z-button zType="default">
+                    <div class="flex items-center justify-between">
+                        <button z-button zType="link" zSize="sm" class="p-0 h-fit" (click)="addFilter()">
+                            <z-icon zType="plus" zSize="lg" />
                             Add Filter
                         </button>
-                        <button z-button zType="default">
-                            Apply Filter
-                        </button>
-                        <button z-button zType="outline">
-                            Reset Filter
+                        <button z-button zType="link" zSize="sm" class="p-0 h-fit text-red-600"
+                            (click)="resetColumnFilters();this.advFilterTrigger().hide()">
+                            <z-icon zType="circle-minus" zSize="lg" />
+                            Clear Filter
                         </button>
                     </div>
                 </div>
+
+                <footer class="p-3 flex items-center justify-between border-t">
+                    <button z-button zType="outline" zSize="sm" (click)="this.advFilterTrigger().hide()">
+                        Cancel
+                    </button>
+                    <button z-button zSize="sm" (click)="applyFilter()" [zDisabled]="!advancedFilter().length">
+                        Apply Filters
+                    </button>
+                </footer>
             </z-popover>
         </ng-template>
 
-        @for (cell of table().getAllColumns(); track $index) {
-        @if(getMeta(cell,'filterOptions')) {
+        @for (column of table().getAllColumns(); track $index) {
+        @if(getMeta(column,'filterOptions')) {
         <z-button-group>
-            @if(getMeta(cell,'label') || getMeta(cell,'icon')){
+            @if(getMeta(column,'label') || getMeta(column,'icon')){
             <label z-button-group-text class="px-2.5">
-                <i z-icon [zType]="getMeta(cell,'icon')" zSize="lg"></i>
-                {{getMeta(cell,'label')}}
+                <i z-icon [zType]="getMeta(column,'icon')" zSize="lg"></i>
+                {{getMeta(column,'label')}}
             </label>
             }
-            @switch (getMeta(cell,'type')) {
+            @switch (getMeta(column,'type')) {
             @case ('single-select') {
-            <z-select class="w-fit" [zValue]="getMeta(cell,'value') || ''" [zPlaceholder]="getMeta(cell,'placeholder')"
-                (zSelectionChange)="onFilterChange(cell, $event)">
-                @for (option of getMeta(cell,'filterOptions'); track $index) {
+            <z-select class="w-fit" [zValue]="getMeta(column,'value') || ''"
+                [zPlaceholder]="getMeta(column,'placeholder')" (zSelectionChange)="onFilterChange(column, $event)">
+                @for (option of getMeta(column,'filterOptions'); track $index) {
                 <z-select-item [zValue]="option.value">{{option.label}}</z-select-item>
                 }
             </z-select>
             }
             @case ('multi-select') {
-            <z-select class="w-fit" [zValue]="getMeta(cell,'value') || []" [zMultiple]="true"
-                [zPlaceholder]="getMeta(cell,'placeholder')" (zSelectionChange)="onFilterChange(cell, $event)">
-                @for (option of getMeta(cell,'filterOptions'); track $index) {
+            <z-select class="w-fit" [zValue]="getMeta(column,'value') || []" [zMultiple]="true"
+                [zPlaceholder]="getMeta(column,'placeholder')" (zSelectionChange)="onFilterChange(column, $event)">
+                @for (option of getMeta(column,'filterOptions'); track $index) {
                 <z-select-item [zValue]="option.value">{{option.label}}</z-select-item>
                 }
             </z-select>

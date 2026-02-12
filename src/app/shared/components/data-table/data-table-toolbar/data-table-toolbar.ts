@@ -37,6 +37,7 @@ export interface IFilter {
   ],
   templateUrl: './data-table-toolbar.html',
 })
+
 export class DataTableToolbar<TData> {
 
   readonly advFilterTrigger = viewChild.required('advFilterTrigger', { read: ZardPopoverDirective });

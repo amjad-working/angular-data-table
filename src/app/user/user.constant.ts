@@ -1,0 +1,47 @@
+import { ISOption, } from "./user.interface";
+
+
+export const LANGUAGE_LIST: ISOption[] = [
+    { label: 'English', value: 'English' },
+    { label: 'German', value: 'German' },
+    { label: 'Dutch', value: 'Dutch' },
+    { label: 'French', value: 'French' },
+    { label: 'Spanish', value: 'Spanish' },
+    { label: 'Italian', value: 'Italian' },
+    { label: 'Portuguese', value: 'Portuguese' },
+    { label: 'Japanese', value: 'Japanese' },
+    { label: 'Korean', value: 'Korean' },
+    { label: 'Hindi', value: 'Hindi' },
+    { label: 'Swedish', value: 'Swedish' },
+    { label: 'Russian', value: 'Russian' },
+    { label: 'Arabic', value: 'Arabic' },
+    { label: 'Turkish', value: 'Turkish' },
+    { label: 'Thai', value: 'Thai' },
+    { label: 'Polish', value: 'Polish' },
+    { label: 'Indonesian', value: 'Indonesian' },
+    { label: 'Vietnamese', value: 'Vietnamese' },
+    { label: 'Chinese', value: 'Chinese' },
+] as const;
+
+export const GAME_OF_CHOICE: ISOption[] = [
+    { label: 'Chess', value: 'Chess' },
+    { label: 'Rithmomachy', value: 'Rithmomachy' },
+    { label: 'Hare and Hounds', value: 'Hare and Hounds' },
+    { label: 'Go', value: 'Go' },
+    { label: 'Checkers', value: 'Checkers' },
+    { label: 'Backgammon', value: 'Backgammon' },
+    { label: 'Shogi', value: 'Shogi' },
+    { label: 'Mahjong', value: 'Mahjong' },
+    { label: 'Baduk', value: 'Baduk' },
+    { label: 'Pachisi', value: 'Pachisi' },
+    { label: 'Scrabble', value: 'Scrabble' },
+    { label: 'Nine Men’s Morris', value: 'Nine Men’s Morris' },
+    { label: 'Tetris', value: 'Tetris' },
+    { label: 'Mancala', value: 'Mancala' },
+    { label: 'Okey', value: 'Okey' },
+    { label: 'Makruk', value: 'Makruk' },
+    { label: 'Szachy', value: 'Szachy' },
+    { label: 'Congklak', value: 'Congklak' },
+    { label: 'Ô ăn quan', value: 'Ô ăn quan' },
+    { label: 'Xiangqi', value: 'Xiangqi' },
+] as const;

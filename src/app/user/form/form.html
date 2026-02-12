@@ -1,0 +1,49 @@
+<form [formGroup]="form" class="grid gap-4">
+    <div class="grid gap-3">
+        <label for="user"
+            class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+            Name
+        </label>
+        <input z-input formControlName="user" placeholder="Enter Name" />
+    </div>
+
+    <div class="grid gap-3">
+        <label for="language"
+            class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+            Language
+        </label>
+        <z-select formControlName="language">
+            @for (option of LANGUAGE_LIST; track $index) {
+            <z-select-item [zValue]="option.value">{{option.label}}</z-select-item>
+            }
+        </z-select>
+    </div>
+
+    <div class="grid gap-3">
+        <label for="gameOfChoice"
+            class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+            Game of Choice
+        </label>
+        <z-select formControlName="gameOfChoice">
+            @for (option of GAME_OF_CHOICE; track $index) {
+            <z-select-item [zValue]="option.value">{{option.label}}</z-select-item>
+            }
+        </z-select>
+    </div>
+
+    <div class="grid gap-3">
+        <label for="totalRevenue"
+            class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+            Total Revenue
+        </label>
+        <input z-input type="number" formControlName="totalRevenue" placeholder="Enter Total Revenue" />
+    </div>
+
+    <div class="grid gap-3">
+        <label for="trend"
+            class="flex items-center gap-2 text-sm leading-none font-medium select-none group-data-[disabled=true]:pointer-events-none group-data-[disabled=true]:opacity-50 peer-disabled:cursor-not-allowed peer-disabled:opacity-50">
+            Trend
+        </label>
+        <input z-input formControlName="trend" placeholder="Enter Trand" />
+    </div>
+</form>

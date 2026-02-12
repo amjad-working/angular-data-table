@@ -121,22 +121,27 @@
         }
         }
         @if(enableColumnVisibility()){
-        <button z-button zType="outline" z-dropdown [zDropdownMenu]="menu" zPlacement="bottomRight">
+
+        <button z-button zType="outline" z-menu zTrigger="click" [zMenuTriggerFor]="productsMenu">
             <z-icon zType="settings-2" zSize="lg" />
             View
         </button>
-        <z-dropdown-menu-content #menu="zDropdownMenuContent">
-            <z-menu-label>Toggle columns</z-menu-label>
-            @for (column of table().getAllColumns(); track $index) {
-            @if(typeof column.accessorFn !== "undefined" && column.getCanHide()){
-            <z-dropdown-menu-item (click)="column.toggleVisibility()">
-                <span z-checkbox [ngModel]="column.getIsVisible()">
-                    {{column.columnDef.header}}
-                </span>
-            </z-dropdown-menu-item>
-            }
-            }
-        </z-dropdown-menu-content>
+
+        <ng-template #productsMenu>
+            <div z-menu-content class="w-48 p-1">
+                <z-menu-label>Toggle columns</z-menu-label>
+                @for (column of table().getAllColumns(); track $index) {
+                @if(typeof column.accessorFn !== "undefined" && column.getCanHide()){
+                <!-- z-menu-item -->
+                <z-dropdown-menu-item (click)="column.toggleVisibility()">
+                    <span z-checkbox [ngModel]="column.getIsVisible()">
+                        {{column.columnDef.header}}
+                    </span>
+                </z-dropdown-menu-item>
+                }
+                }
+            </div>
+        </ng-template>
         }
     </div>
 

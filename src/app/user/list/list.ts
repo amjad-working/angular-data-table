@@ -236,7 +236,7 @@ export class List {
       accessorKey: 'language',
       header: 'Language',
       meta: {
-        label: "Language",
+        // label: "Language",
         type: "single-select",
         placeholder: "Filter by Language",
         icon: "languages",
@@ -247,7 +247,7 @@ export class List {
       accessorKey: 'gameOfChoice',
       header: 'Game of Choice',
       meta: {
-        label: "Game",
+        // label: "Game",
         type: "multi-select",
         placeholder: "Filter by Game",
         icon: "gamepad-2",

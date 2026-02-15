@@ -315,7 +315,8 @@ export class ZardSelectComponent implements ControlValueAccessor, AfterContentIn
         index++;
       }
       if (labelsToShowCount && this.zMaxLabelCount() && index === this.zMaxLabelCount()) {
-        labels.push(`${labelsToShowCount} more item${labelsToShowCount > 1 ? 's' : ''} selected`);
+        labels.push(`${labelsToShowCount} +`);
+        // labels.push(`${labelsToShowCount} more item${labelsToShowCount > 1 ? 's' : ''} selected`);
         break;
       }
     }
